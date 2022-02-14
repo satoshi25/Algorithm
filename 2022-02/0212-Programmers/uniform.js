@@ -25,7 +25,7 @@ function solution(n, lost, reserve) {
         for (let j = 0; j < reserve.length; j++) {
             let pre = lost[i] - 1;
             let next = lost[i] + 1;
-            let cur = lost[i]
+            let cur = lost[i];
             if (pre === reserve[j] | next === reserve[j] | cur === reserve[j]) {
                 reserve.splice(j, 1);
                 answer += 1;
