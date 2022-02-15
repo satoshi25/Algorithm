@@ -2,9 +2,16 @@
 
 // https://programmers.co.kr/learn/courses/30/lessons/42862
 
-// 7, 13, 18
+// 도난당한 학생에게 여분의 체육복을 가지고 있는 학생이 빌려준다고 판단
+// -> 여분의 체육복을 가지고 있는 학생도 도난당할수 있음
+// -> lost와 reserve에 같은 번호가 있는 학생은 제외
+// -> lost와 reserve가 순서대로 주어지지 않음
+// -> lost와 reserve를 오름차순으로 정렬하여 실행
 
 function solution(n, lost, reserve) {
+
+    lost.sort((a, b) => a - b);
+    reserve.sort((a, b) => a - b);
 
     for (let i = 0; i < lost.length; i++) {
         for (let j = 0; j < reserve.length; j++) {
@@ -19,6 +26,7 @@ function solution(n, lost, reserve) {
     lost = lost.filter((lostone) => {
         return lostone !== 'x'
     })
+    
     let answer = n - lost.length;
 
     for (let i = 0; i < lost.length; i++) {
