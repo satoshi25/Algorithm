@@ -23,6 +23,7 @@
 // solution([1, 1, 1, 1], 1) -> 2
 // solution([10, 10, 10, 10], 1) -> 2
 
+
 function solution(d, budget) {
   let answer = 0;
   
