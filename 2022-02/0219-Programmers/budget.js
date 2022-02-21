@@ -17,34 +17,34 @@
 // [2,2,3,3]	   10	      4
 
 // 해결 안된 케이스
-// 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
+// 3, 4, 21, 23
 
 // 이상 동작
-// solution([1, 1, 1, 1], 1) -> 2
-// solution([10, 10, 10, 10], 1) -> 2
-
 
 function solution(d, budget) {
-  let answer = 0;
-  
-  d.sort((a, b) => a - b);
-  let sum = d.reduce((a, b, index) => {
-    if (a <= budget) {
-        return a + b;
-    } else {
-        answer = index - 1;
-    }
 
-    return ;
-  }, 0)
+  let answer = 0;
+  let isChange = false;
+
+  d.sort((a, b) => a - b);
+
+  let sum = 0;
+  let stopIndex = 0;
   
-  if (sum > budget) {
-    answer = d.length - 1;
+  for (let i = 0; i < d.length; i++) {
+    if(sum >= budget) {
+      stopIndex = i;
+      isChange = true;
+      break;
+    }
+    sum += d[i];
   }
-  
-  if (answer === 0) {
+
+  if(isChange === true) {
+    answer = stopIndex - 1;
+  } else {
     answer = d.length;
   }
-  
+
   return answer;
 }
