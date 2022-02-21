@@ -17,7 +17,7 @@
 // [2,2,3,3]	   10	      4
 
 // 해결 안된 케이스
-// 3, 4, 21, 23
+// X
 
 // 이상 동작
 
@@ -30,20 +30,31 @@ function solution(d, budget) {
 
   let sum = 0;
   let stopIndex = 0;
-  
+
   for (let i = 0; i < d.length; i++) {
-    if(sum >= budget) {
+    if(d[0] > budget) {
+      break;
+    }
+    if(sum > budget) {
       stopIndex = i;
       isChange = true;
       break;
     }
     sum += d[i];
+    if(sum === budget) {
+      stopIndex = i + 2;
+      isChange = true;
+      break;
+    }
   }
 
   if(isChange === true) {
     answer = stopIndex - 1;
   } else {
     answer = d.length;
+  }
+  if(d[0] > budget) {
+    answer = 0;
   }
 
   return answer;
