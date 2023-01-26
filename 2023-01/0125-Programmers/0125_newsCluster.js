@@ -7,55 +7,58 @@
 
 function solution(str1, str2) {
 	var answer = 0;
-	let word = /\w/;
+	let word = /[a-zA-Z0-9]/;
 	let arr1 = [];
 	let arr2 = [];
 	let uni = [];
 	let inter = [];
-	
-	let str1Arr = str1.split('').filter(el => {
-			if (isNaN(Number(el))) {
-					if (word.test(el) && el !== ' ' && el !== undefined) {
-							return el;
-					}
-			}
-	}).map(el => el.toLowerCase());
-	let str2Arr = str2.split('').filter(el => {
-			if (isNaN(Number(el))) {
-					if (word.test(el) && el !== ' ' && el !== undefined) {
-							return el;
-					}
-			}
-	}).map(el => el.toLowerCase());
 
-	
-	for (let i = 0; i < str1Arr.length; i++) {
-			if (str1Arr[i] !== undefined && str1Arr[i+1] !== undefined) {
-					arr1.push(str1Arr[i] + str1Arr[i+1])
-			}
+	for (let i = 0; i < str1.length; i++) {
+		if (str1[i] !== undefined && str1[i+1] !== undefined) {
+			arr1.push(str1[i] + str1[i+1])
+		}
 	}
-	for (let i = 0; i < str2Arr.length; i++) {
-			if (str2Arr[i] !== undefined && str2Arr[i+1] !== undefined) {
-					arr2.push(str2Arr[i] + str2Arr[i+1])
-			}
+	for (let i = 0; i < str2.length; i++) {
+		if (str2[i] !== undefined && str2[i+1] !== undefined) {
+			arr2.push(str2[i] + str2[i+1])
+		}
 	}
-	
+	arr1 = arr1.filter(el => {
+		if (isNaN(Number(el[0])) && word.test(el[0]) && isNaN(Number(el[1])) && word.test(el[1])) {
+			return el;
+		}
+	});
+	arr2 = arr2.filter(el => {
+		if (isNaN(Number(el[0])) && word.test(el[0]) && isNaN(Number(el[1])) && word.test(el[1])) {
+			return el;
+		}
+	});
+
+	// console.log(arr1, arr2)
+	if (arr1.length === 0 && arr2.length === 0) {
+		return 65536;
+	}
+
 	uni = arr1.concat(arr2);
-	console.log(uni)
+	let uniLow = uni.map(el => el.toLowerCase());
+
+	let arr2Low = arr2.map(el => el.toLowerCase());
+
 	for (let i = 0; i < arr1.length; i++) {
-			for (let j = 0; j < arr2.length; j++) {
-					if (!uni[arr2[j]]) {
-							uni[arr2[j]] = 1;
-					}
-					if (arr1[i] === arr2[j]) {
-							inter.push(arr2[j]);
-					}
-			}
-			if (!uni[arr2[i]]) {
-					uni[arr1[i]] = 1;
-			}
-	}
+		let idx = arr2Low.indexOf(arr1[i].toLowerCase());
+		if (idx > -1) {
+			inter.push(arr1[i]);
+			arr2Low.splice(idx, 1);
+		}
+	}    
+
+
+	for (let i = 0; i < inter.length; i++) {
+		let idx = uniLow.indexOf(inter[i].toLowerCase());
+		uni.splice(idx, 1);
+	}    
 	
-	
+	// console.log(uni, inter)
+	answer = Math.floor((inter.length / uni.length) * 65536);
 	return answer;
 }
