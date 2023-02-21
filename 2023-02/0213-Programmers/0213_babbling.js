@@ -20,48 +20,98 @@ babbling	                                      result
 ["ayaye", "uuu", "yeye", "yemawoo", "ayaayaa"]	  2
 */
 
+// 1차 시도(실패)
 function solution(babbling) {
-	var answer = 0;
-	let speak = ['aya', 'ye', 'woo', 'ma'];
-	let two = [];
-	let three = [];
-	let four = [];
-	for (let i = 0; i < speak.length; i++) {
-		for (let j = 0; j < speak.length; j++) {
-			if (speak[i] !== speak[j]) {
-				two.push(speak[i]+speak[j]);    
-			}
-		}
-	}
-	
-	for (let i = 0; i < speak.length; i++) {
-		for (let j = 0; j < speak.length; j++) {
-			for (let k = 0; k < speak.length; k++) {
-				if (speak[i] !== speak[j] && speak[j] !== speak[k]) {
-					three.push(speak[i]+speak[j]+speak[k]);
-				}
-			}
-		}
-	}
-	
-	for (let i = 0; i < speak.length; i++) {
-		for (let j = 0; j < speak.length; j++) {
-			for (let k = 0; k < speak.length; k++) {
-				for (let l = 0; l < speak.length; l++) {
-					if (speak[i] !== speak[j] && speak[j] !== speak[k] && speak[k] !== speak[l]) {
-						four.push(speak[i]+speak[j]+speak[k]+speak[l])
-					}
-				}
-			}
-		}
-	}
-	
-	let possible = speak.concat(two, three, four)
-	
-	for (let i = 0; i < babbling.length; i++) {
-		if (possible.indexOf(babbling[i]) !== -1) {
-			answer++;
-		}
-	}
-	return answer;
+  var answer = 0;
+  let speak = ['aya', 'ye', 'woo', 'ma'];
+  let two = [];
+  let three = [];
+  let four = [];
+  for (let i = 0; i < speak.length; i++) {
+    for (let j = 0; j < speak.length; j++) {
+      if (speak[i] !== speak[j]) {
+        two.push(speak[i] + speak[j]);
+      }
+    }
+  }
+
+  for (let i = 0; i < speak.length; i++) {
+    for (let j = 0; j < speak.length; j++) {
+      for (let k = 0; k < speak.length; k++) {
+        if (speak[i] !== speak[j] && speak[j] !== speak[k]) {
+          three.push(speak[i] + speak[j] + speak[k]);
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i < speak.length; i++) {
+    for (let j = 0; j < speak.length; j++) {
+      for (let k = 0; k < speak.length; k++) {
+        for (let l = 0; l < speak.length; l++) {
+          if (
+            speak[i] !== speak[j] &&
+            speak[j] !== speak[k] &&
+            speak[k] !== speak[l]
+          ) {
+            four.push(speak[i] + speak[j] + speak[k] + speak[l]);
+          }
+        }
+      }
+    }
+  }
+
+  let possible = speak.concat(two, three, four);
+
+  for (let i = 0; i < babbling.length; i++) {
+    if (possible.indexOf(babbling[i]) !== -1) {
+      answer++;
+    }
+  }
+  return answer;
+}
+
+// 2차 시도(성공)
+function solution(babbling) {
+  var answer = 0;
+
+  const validate = (str) => {
+    let idx = 0;
+    while (idx !== str.length) {
+      if (str[idx] === 'a' || str[idx] === 'w') {
+        if (
+          str[idx] + str[idx + 1] + str[idx + 2] === 'aya' &&
+          str[idx + 3] !== 'a'
+        ) {
+          idx += 3;
+        } else if (
+          str[idx] + str[idx + 1] + str[idx + 2] === 'woo' &&
+          str[idx + 3] !== 'w'
+        ) {
+          idx += 3;
+        } else {
+          return false;
+        }
+      } else if (str[idx] === 'y' || str[idx] === 'm') {
+        if (str[idx] + str[idx + 1] === 'ye' && str[idx + 2] !== 'y') {
+          idx += 2;
+        } else if (str[idx] + str[idx + 1] === 'ma' && str[idx + 2] !== 'm') {
+          idx += 2;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  for (let i = 0; i < babbling.length; i++) {
+    if (validate(babbling[i])) {
+      answer++;
+    }
+  }
+
+  return answer;
 }
