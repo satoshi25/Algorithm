@@ -77,4 +77,4 @@ for (let k = nums.length - 1; k >= 0; k--) {
   indexArr[nums[k]]--;
 }
 
-c;
+console.log(sortArr.join(''));
