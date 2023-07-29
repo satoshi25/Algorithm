@@ -79,22 +79,30 @@ sys.stdin = open("./input.txt")
 import re
 
 m, n = map(int, input().split(" "))
-teams, kayak, locations = [[], re.compile("[1-9]"), [[0, 0]] * n]
+teams, kayak, locations, pre = [[], re.compile("[1-9]"), [[0, 0]] * 9, [m, 0]]
 
 for _ in range(m):
     teams.append(list(input()))
 
 for team in teams:
     i = n - 1
-    print("i", i)
     while i >= 0:
         if kayak.match(team[i]):
-            print(team, team[i])
-            locations[int(team[i])] = [int(team[i]), i]
+            locations[int(team[i]) - 1] = [int(team[i]), i]
             break
         i -= 1
 
-# [팀번호, 위치]
-locations.pop(0)
-print(sorted(locations, key=lambda team: team[1], reverse=True))
-# print(locations)
+sorted_rank = sorted(locations, key=lambda team: team[1], reverse=True)
+boats_num = [0] * 9
+i = 0
+while i < 9:
+    if sorted_rank[i][1] != pre[0]:
+        pre[1] += 1
+        boats_num[sorted_rank[i][0] - 1] = pre[1]
+        pre[0] = sorted_rank[i][1]
+    else:
+        boats_num[sorted_rank[i][0] - 1] = pre[1]
+    i += 1
+
+for boat in boats_num:
+    print(boat)
