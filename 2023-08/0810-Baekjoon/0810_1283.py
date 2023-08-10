@@ -88,7 +88,7 @@ def make_sc(mk_string, s, idx):
 def search(string):
     result = ""
     for i, s in enumerate(string, 0):
-        if not s in sc and (not string[i - 1] or string[i - 1] == " "):
+        if (not s in sc and i == 0) or (not s in sc and string[i - 1] == " "):
             result = make_sc(string, s, i)
             return result
 
