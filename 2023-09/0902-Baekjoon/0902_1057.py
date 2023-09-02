@@ -1,7 +1,7 @@
 """
 https://www.acmicpc.net/problem/1057
 Baekjoon
-2004 토너먼트
+1057 토너먼트
 
 문제
 김지민은 N명이 참가하는 스타 토너먼트에 진출했다. 
