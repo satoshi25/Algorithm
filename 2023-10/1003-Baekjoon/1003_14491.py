@@ -27,13 +27,17 @@ sys.stdin = open("./input.txt")
 
 result = ""
 n = int(input())
-quo = 0
+quo, rem = 0, 0
 
-while n >= 9:
-    quo, rem = divmod(n, 9)
-    n = quo
-    result = f"{rem}{result}"
+if n < 9:
+    print(n)
 
-result = f"{quo}{result}"
+else:
+    while n >= 9:
+        quo, rem = divmod(n, 9)
+        n = quo
+        result = f"{rem}{result}"
 
-print(result)
+    result = f"{quo}{result}"
+
+    print(result)
