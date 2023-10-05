@@ -37,8 +37,6 @@ B진법이란, 한 자리에서 수를 표현할 때 쓸 수 있는 수의 가�
 0
 """
 
-#  11068 회문인 수
-
 import sys
 
 sys.stdin = open("./input.txt")
