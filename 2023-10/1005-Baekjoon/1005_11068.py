@@ -48,7 +48,7 @@ for _ in range(test_cnt):
     nums.append(int(input()))
 
 
-def cnt_palin(n):
+def is_palin(n):
     cnt = 0
     for i in range(2, 65):
         a = n
@@ -60,15 +60,12 @@ def cnt_palin(n):
             if quo < i:
                 break
         d_num.append(str(quo))
-        if "".join(d_num) == "".join(d_num[::-1]):
+        if "0".join(d_num) == "0".join(d_num[::-1]):
+            # print(d_num, i, n)
             cnt += 1
-            # print(d_num, i)
             break
     return cnt
 
 
-result = []
 for i in nums:
-    result.append(cnt_palin(i))
-
-print("\n".join(result))
+    print(is_palin(i))
