@@ -1,4 +1,4 @@
-'''
+"""
 https://www.acmicpc.net/problem/4564
 Baekjoon
 4564 숫자 카드놀이
@@ -46,27 +46,29 @@ S는 0으로 시작하지 않으며, 입력의 마지막 줄에는 0이 하나 �
 28 16 6
 4
 40 0
-'''
+"""
 
 import sys
 
-sys.stdin = open('./0116.txt')
+sys.stdin = open("./input.txt")
 
 input = lambda: sys.stdin.readline().rstrip()
 
+
 def get_one_digit(num):
-	n_list = []
-	while len(num) != 1:
-		n_list.append(num)
-		result = 1
-		for c in num:
-			result *= int(c)
-		num = str(result)
-	n_list.append(num)
-	return ' '.join(n_list)
+    n_list = []
+    while len(num) != 1:
+        n_list.append(num)
+        result = 1
+        for c in num:
+            result *= int(c)
+        num = str(result)
+    n_list.append(num)
+    return " ".join(n_list)
+
 
 while True:
-	cur = input()
-	if cur == '0':
-		break
-	print(get_one_digit(cur))
+    cur = input()
+    if cur == "0":
+        break
+    print(get_one_digit(cur))
